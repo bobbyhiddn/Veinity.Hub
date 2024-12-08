@@ -1,0 +1,203 @@
+/* Variables */
+:root {
+    --primary-color: #2b1055;
+    --secondary-color: #7597de;
+    --text-primary: #333;
+    --text-secondary: #666;
+    --background-light: #fff;
+    --background-dark: #f8f9fa;
+    --border-color: #dee2e6;
+    --link-color: #2b1055;
+    --link-hover: #4b1b87;
+  }
+  
+  /* Base Styles */
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.6;
+    color: var(--text-primary);
+    background-color: var(--background-light);
+  }
+  
+  a {
+    color: var(--link-color);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  
+  a:hover {
+    color: var(--link-hover);
+    text-decoration: none;
+  }
+  
+  /* Header & Navigation */
+  .navbar {
+    background-color: var(--primary-color);
+    padding: 1rem 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .navbar-brand {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: white !important;
+  }
+  
+  .nav-link {
+    color: rgba(255,255,255,0.8) !important;
+    font-weight: 500;
+  }
+  
+  .nav-link:hover {
+    color: white !important;
+  }
+  
+  /* Hero Section */
+  .hero-section {
+    background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+    color: white;
+    padding: 4rem 0;
+    margin-bottom: 2rem;
+  }
+  
+  .hero-section h1 {
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  
+  /* Article Cards */
+  .article-card {
+    background: var(--background-light);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .article-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+  
+  .article-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+  
+  .article-meta {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+  }
+  
+  .article-excerpt {
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+  }
+  
+  /* Category Tags */
+  .category-tag {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background-color: var(--background-dark);
+    border-radius: 20px;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    transition: background-color 0.2s ease;
+  }
+  
+  .category-tag:hover {
+    background-color: var(--primary-color);
+    color: white;
+  }
+  
+  /* Sidebar */
+  .sidebar {
+    background: var(--background-light);
+    border-radius: 8px;
+    padding: 1.5rem;
+  }
+  
+  .sidebar-section {
+    margin-bottom: 2rem;
+  }
+  
+  .sidebar-section h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--primary-color);
+  }
+  
+  .category-list, .recent-articles-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .category-list li, .recent-articles-list li {
+    margin-bottom: 0.75rem;
+  }
+  
+  /* Full Article View */
+  .article-full {
+    background: var(--background-light);
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  }
+  
+  .article-header {
+    margin-bottom: 2rem;
+  }
+  
+  .article-content {
+    font-size: 1.1rem;
+    line-height: 1.8;
+  }
+  
+  /* Search */
+  .search-form-large .form-control {
+    padding: 1rem;
+    font-size: 1.1rem;
+    border-radius: 8px 0 0 8px;
+  }
+  
+  .search-form-large .btn {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    border-radius: 0 8px 8px 0;
+  }
+  
+  /* Ad Slots */
+  .ad-slot {
+    background: var(--background-dark);
+    padding: 1rem;
+    border-radius: 8px;
+    margin: 1rem 0;
+    text-align: center;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .hero-section {
+      padding: 2rem 0;
+    }
+    
+    .article-card {
+      padding: 1rem;
+    }
+    
+    .article-title {
+      font-size: 1.25rem;
+    }
+    
+    .sidebar {
+      margin-top: 2rem;
+    }
+  }

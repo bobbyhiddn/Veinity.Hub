@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <article class="article-full">
+                <header class="article-header">
+                    <h1 class="article-title">{{ metadata.title }}</h1>
+                    <div class="article-meta">
+                        {% if metadata.source %}
+                        <span class="article-source">
+                            <i class="fas fa-newspaper"></i> {{ metadata.source }}
+                        </span>
+                        {% endif %}
+                        {% if metadata.published_date %}
+                        <span class="article-date">
+                            <i class="fas fa-calendar"></i> {{ metadata.published_date }}
+                        </span>
+                        {% endif %}
+                        {% if metadata.category %}
+                        <a href="{{ url_for('category_view', category=metadata.category) }}" 
+                           class="category-tag">
+                            <i class="fas fa-tag"></i> {{ metadata.category }}
+                        </a>
+                        {% endif %}
+                    </div>
+                </header>
+
+                {% if ad_config.enabled and ad_config.slots.in_content %}
+                <div class="ad-slot content-ad-top">
+                    <ins class="adsbygoogle"
+                         data-ad-client="{{ ad_config.client_id }}"
+                         data-ad-slot="{{ ad_config.slots.in_content }}"
+                         style="display:block"
+                         data-ad-format="rectangle"></ins>
+                    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+                </div>
+                {% endif %}
+
+                <div class="article-content">
+                    {{ content|safe }}
+                </div>
+
+                {% if metadata.tags %}
+                <div class="article-tags">
+                    {% for tag in metadata.tags %}
+                    <span class="tag">{{ tag }}</span>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                {% if ad_config.enabled and ad_config.slots.in_content %}
+                <div class="ad-slot content-ad-bottom">
+                    <ins class="adsbygoogle"
+                         data-ad-client="{{ ad_config.client_id }}"
+                         data-ad-slot="{{ ad_config.slots.in_content }}"
+                         style="display:block"
+                         data-ad-format="rectangle"></ins>
+                    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+                </div>
+                {% endif %}
+            </article>
+        </div>
+
+        <div class="col-md-4">
+            {% include '_sidebar.html' %}
+        </div>
+    </div>
+</div>
+{% endblock %}

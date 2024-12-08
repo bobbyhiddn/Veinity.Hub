@@ -2,7 +2,8 @@ from flask import Flask
 from dotenv import load_dotenv
 import os
 from hub.core import VeinityHub
-from modules.aggregator.core import VeinityAggregator
+# TODO: Uncomment when aggregator is built
+# from modules.aggregator.core import VeinityAggregator
 
 # Load environment variables
 load_dotenv()
@@ -11,11 +12,13 @@ def create_app():
     """Initialize and configure the Veinity application"""
     # Initialize components
     hub = VeinityHub()
-    aggregator = VeinityAggregator()
+    # TODO: Uncomment when aggregator is built
+    # aggregator = VeinityAggregator()
     
     # Set up routes
     hub.setup_routes()
-    aggregator.setup_routes()
+    # TODO: Uncomment when aggregator is built
+    # aggregator.setup_routes()
     
     return hub.app
 

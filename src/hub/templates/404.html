@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container text-center py-5">
+    <h1 class="display-1">404</h1>
+    <h2 class="mb-4">Page Not Found</h2>
+    <p class="lead mb-4">The page you're looking for doesn't exist or has been moved.</p>
+    <div class="mb-4">
+        <a href="{{ url_for('index') }}" class="btn btn-primary">
+            <i class="fas fa-home mr-2"></i> Return Home
+        </a>
+    </div>
+    
+    <div class="mt-5">
+        <h3>Recent Articles</h3>
+        <div class="row justify-content-center">
+            {% set recent_articles = get_recent_articles(limit=3) %}
+            {% for article in recent_articles %}
+            <div class="col-md-4">
+                <div class="article-card">
+                    <h4 class="article-title">
+                        <a href="{{ url_for('article_view', article_path=article.path) }}">
+                            {{ article.title }}
+                        </a>
+                    </h4>
+                    <div class="article-meta">
+                        <span class="article-date">{{ article.published_date|format_date }}</span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

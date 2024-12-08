@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <header class="category-header">
+                <h1>{{ category|title }} News</h1>
+                <p class="lead">Latest articles in {{ category|title }}</p>
+            </header>
+
+            {% if articles %}
+            <div class="article-list">
+                {% for article in articles %}
+                <article class="article-card">
+                    <h2 class="article-title">
+                        <a href="{{ url_for('article_view', article_path=article.path) }}">
+                            {{ article.title }}
+                        </a>
+                    </h2>
+                    <div class="article-meta">
+                        <span class="article-source">{{ article.source }}</span>
+                        <span class="article-date">{{ article.published_date }}</span>
+                    </div>
+                    {% if article.description %}
+                    <p class="article-excerpt">{{ article.description[:160] }}...</p>
+                    {% endif %}
+                </article>
+                {% endfor %}
+            </div>
+            {% else %}
+            <p class="text-center mt-5">No articles found in this category.</p>
+            {% endif %}
+        </div>
+
+        <div class="col-md-4">
+            {% include '_sidebar.html' %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  veinity:
+    build: .
+    ports:
+      - "8888:8888"
+    environment:
+      - FLASK_SECRET_KEY=${FLASK_SECRET_KEY}
+      - NEWSAPI_KEY=${NEWSAPI_KEY}
+      - ANALYTICS_ID=${ANALYTICS_ID}
+    volumes:
+      - ./src:/app/src
+      - ./src/modules/library/articles:/app/src/modules/library/articles
+    command: python src/main.py

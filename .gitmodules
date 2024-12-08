@@ -1,0 +1,3 @@
+[submodule "src/modules/library"]
+	path = src/modules/library
+	url = https://github.com/bobbyhiddn/Veinity.Library.git

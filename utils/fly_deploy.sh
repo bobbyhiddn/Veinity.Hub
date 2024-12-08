@@ -20,7 +20,7 @@ print_error() {
     exit 1
 }
 
-# Function to check health endpoint with retries
+# Function to check health endpoint
 check_health() {
     local url="$1"
     local max_attempts=10
@@ -33,20 +33,20 @@ check_health() {
         print_status "Attempt $attempt of $max_attempts"
         
         if curl -s "${url}/health" | grep -q "operational"; then
-            print_success "Chamber is operational!"
+            print_success "Veinity is operational!"
             return 0
         else
-            print_status "Chamber is still starting up, waiting ${wait_time} seconds..."
+            print_status "Veinity is still starting up, waiting ${wait_time} seconds..."
             sleep $wait_time
             attempt=$((attempt + 1))
         fi
     done
 
-    print_error "Chamber failed to respond after $max_attempts attempts"
+    print_error "Veinity failed to respond after $max_attempts attempts"
     return 1
 }
 
-# Load .env file
+# Load environment variables
 if [ -f .env ]; then
     print_status "Loading environment variables..."
     export $(grep -v '^#' .env | xargs)
@@ -55,29 +55,30 @@ else
     print_error ".env file not found!"
 fi
 
-# Update submodules before deployment
-print_status "Updating submodules..."
+# Update git repository and submodules
+print_status "Updating repository and submodules..."
 git pull --recurse-submodules
 git submodule update --init --recursive
-print_success "Submodules updated"
+print_success "Repository updated"
 
-# Set the secrets using flyctl
+# Set secrets on Fly.io
 print_status "Setting secrets on Fly.io..."
 flyctl secrets set \
     FLASK_SECRET_KEY="$FLASK_SECRET_KEY" \
-    CHAMBER_API_KEY="$CHAMBER_API_KEY" \
+    NEWSAPI_KEY="$NEWSAPI_KEY" \
+    ANALYTICS_ID="$ANALYTICS_ID" \
     WEBHOOK_SECRET="$WEBHOOK_SECRET"
 
-print_success "Secrets set successfully on Fly.io!"
+print_success "Secrets set successfully on Fly.io"
 
 # Deploy to Fly.io
-print_status "Deploying Magi.Chamber to Fly.io..."
-if fly deploy; then
-    print_success "Chamber has materialized in the cloud!"
+print_status "Deploying Veinity to Fly.io..."
+if flyctl deploy; then
+    print_success "Veinity has been deployed!"
     
     # Get the app URL
-    APP_URL="magi-chamber.fly.dev"
-    print_status "Your chamber awaits at: https://$APP_URL"
+    APP_URL="veinity.fly.dev"
+    print_status "Your application is available at: https://$APP_URL"
     
     # Check health with retries
     check_health "https://$APP_URL"
@@ -85,6 +86,6 @@ else
     print_error "Deployment failed"
 fi
 
-# Show recent logs regardless of health check result
-print_status "Recent logs from the Chamber:"
-fly logs
+# Show recent logs
+print_status "Recent logs from Veinity:"
+flyctl logs

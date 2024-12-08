@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="hero-section text-center py-5">
+    <h1 class="display-4">{{ title }}</h1>
+    <p class="lead">Your source for the latest tech news and insights</p>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <!-- Featured Articles -->
+            {% if articles %}
+            <section class="mb-5">
+                <h2 class="section-title">Latest Articles</h2>
+                <div class="article-grid">
+                    {% for article in articles %}
+                    <article class="article-card">
+                        <h3 class="article-title">
+                            <a href="{{ url_for('article_view', article_path=article.path) }}">
+                                {{ article.title }}
+                            </a>
+                        </h3>
+                        <div class="article-meta">
+                            <span class="article-source">{{ article.source }}</span>
+                            <span class="article-date">{{ article.published_date }}</span>
+                        </div>
+                        {% if article.description %}
+                        <p class="article-excerpt">{{ article.description[:160] }}...</p>
+                        {% endif %}
+                        {% if article.category %}
+                        <a href="{{ url_for('category_view', category=article.category) }}" 
+                           class="category-tag">{{ article.category }}</a>
+                        {% endif %}
+                    </article>
+                    {% endfor %}
+                </div>
+            </section>
+            {% else %}
+            <p class="text-center mt-5">No articles found.</p>
+            {% endif %}
+        </div>
+        
+        <!-- Sidebar -->
+        <div class="col-md-4">
+            {% include '_sidebar.html' %}
+        </div>
+    </div>
+</div>
+{% endblock %}

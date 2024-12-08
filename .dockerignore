@@ -1,0 +1,5 @@
+# flyctl launch added from .gitignore
+# flyctl launch added from .gitignore
+**\**\.env
+**\**\.gitignore
+**\fly.toml

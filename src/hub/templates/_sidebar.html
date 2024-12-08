@@ -1,0 +1,40 @@
+<aside class="sidebar">
+    {% if ad_config.enabled and ad_config.slots.sidebar %}
+    <div class="ad-slot sidebar-ad mb-4">
+        <ins class="adsbygoogle"
+             data-ad-client="{{ ad_config.client_id }}"
+             data-ad-slot="{{ ad_config.slots.sidebar }}"
+             style="display:block"
+             data-ad-format="vertical"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+    {% endif %}
+
+    <div class="sidebar-section">
+        <h3>Categories</h3>
+        <ul class="category-list">
+            {% for category in categories %}
+            <li>
+                <a href="{{ url_for('category_view', category=category) }}">
+                    {{ category|title }}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="sidebar-section">
+        <h3>Recent Articles</h3>
+        {% set recent_articles = get_recent_articles(limit=5) %}
+        <ul class="recent-articles-list">
+            {% for article in recent_articles %}
+            <li>
+                <a href="{{ url_for('article_view', article_path=article.path) }}">
+                    {{ article.title }}
+                </a>
+                <span class="article-date small">{{ article.published_date }}</span>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</aside>

@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <header class="search-header">
+                <h1>Search Results</h1>
+                {% if query %}
+                <p class="lead">Showing results for "{{ query }}"</p>
+                {% endif %}
+            </header>
+
+            <div class="search-form-large mb-4">
+                <form action="{{ url_for('search') }}" method="get">
+                    <div class="input-group">
+                        <input type="search" name="q" class="form-control" 
+                               placeholder="Search articles..." value="{{ query }}">
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-search"></i> Search
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            {% if results %}
+            <div class="search-results">
+                {% for result in results %}
+                <article class="article-card">
+                    <h2 class="article-title">
+                        <a href="{{ url_for('article_view', article_path=result.path) }}">
+                            {{ result.title }}
+                        </a>
+                    </h2>
+                    <div class="article-meta">
+                        {% if result.source %}
+                        <span class="article-source">{{ result.source }}</span>
+                        {% endif %}
+                        {% if result.published_date %}
+                        <span class="article-date">{{ result.published_date }}</span>
+                        {% endif %}
+                        {% if result.category %}
+                        <a href="{{ url_for('category_view', category=result.category) }}" 
+                           class="category-tag">{{ result.category }}</a>
+                        {% endif %}
+                    </div>
+                    {% if result.description %}
+                    <p class="article-excerpt">{{ result.description[:160] }}...</p>
+                    {% endif %}
+                </article>
+                {% endfor %}
+            </div>
+            {% elif query %}
+            <p class="text-center mt-5">No results found for "{{ query }}".</p>
+            {% endif %}
+        </div>
+
+        <div class="col-md-4">
+            {% include '_sidebar.html' %}
+        </div>
+    </div>
+</div>
+{% endblock %}

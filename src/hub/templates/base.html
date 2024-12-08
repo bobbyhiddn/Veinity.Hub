@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ title }} - {{ site_name }}{% endblock %}</title>
+    <meta name="description" content="{{ site_description }}">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    
+    <!-- Analytics -->
+    {% if analytics_id %}
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ analytics_id }}"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '{{ analytics_id }}');
+    </script>
+    {% endif %}
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="nav-brand">
+                <a href="{{ url_for('index') }}">{{ site_name }}</a>
+            </div>
+            <div class="nav-links">
+                {% for category in categories %}
+                <a href="{{ url_for('category_view', category=category) }}">{{ category }}</a>
+                {% endfor %}
+            </div>
+            <div class="nav-search">
+                <form action="{{ url_for('search') }}" method="get">
+                    <input type="search" name="q" placeholder="Search articles..." required>
+                    <button type="submit">Search</button>
+                </form>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About {{ site_name }}</h3>
+                <p>{{ site_description }}</p>
+            </div>
+            <div class="footer-section">
+                <h3>Categories</h3>
+                <ul>
+                    {% for category in categories %}
+                    <li><a href="{{ url_for('category_view', category=category) }}">{{ category }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Connect</h3>
+                <div class="social-links">
+                    {% for platform, url in social_links.items() %}
+                    <a href="{{ url }}" target="_blank" rel="noopener">{{ platform }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; {{ current_year }} {{ site_name }}. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
