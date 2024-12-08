@@ -11,7 +11,48 @@
     
     <!-- Styles -->
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <script src="{{ url_for('static', filename='theme.js') }}"></script>
+    
+    <!-- Theme Script -->
+    <script>
+        // Check for saved theme preference, otherwise use dark theme
+        const getTheme = () => {
+            const savedTheme = localStorage.getItem('theme');
+            return savedTheme || 'dark';
+        };
+
+        // Apply theme to document
+        const applyTheme = (theme) => {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+        };
+
+        // Update theme toggle button icons
+        const updateThemeIcons = (theme) => {
+            const darkIcon = document.querySelector('.theme-toggle-dark');
+            const lightIcon = document.querySelector('.theme-toggle-light');
+            if (theme === 'dark') {
+                darkIcon.style.display = 'none';
+                lightIcon.style.display = 'block';
+            } else {
+                darkIcon.style.display = 'block';
+                lightIcon.style.display = 'none';
+            }
+        };
+
+        // Toggle theme function
+        const toggleTheme = () => {
+            const currentTheme = getTheme();
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            applyTheme(newTheme);
+            updateThemeIcons(newTheme);
+        };
+
+        // Initialize theme
+        document.addEventListener('DOMContentLoaded', () => {
+            applyTheme(getTheme());
+            updateThemeIcons(getTheme());
+        });
+    </script>
     
     <!-- Analytics -->
     {% if analytics_id %}
@@ -35,11 +76,13 @@
                 <a href="{{ url_for('category_view', category=category) }}">{{ category }}</a>
                 {% endfor %}
             </div>
-            <div class="nav-search">
-                <form action="{{ url_for('search') }}" method="get">
-                    <input type="search" name="q" placeholder="Search articles..." required>
-                    <button type="submit">Search</button>
-                </form>
+            <div class="nav-actions">
+                <div class="nav-search">
+                    <form action="{{ url_for('search') }}" method="get">
+                        <input type="search" name="q" placeholder="Search articles..." required>
+                        <button type="submit">Search</button>
+                    </form>
+                </div>
                 <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
                     <svg class="theme-toggle-dark" viewBox="0 0 24 24" style="display: none;">
                         <path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-3.03 0-5.5-2.47-5.5-5.5 0-1.82.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"/>
