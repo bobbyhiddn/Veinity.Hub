@@ -1,0 +1,73 @@
+#!/bin/sh
+
+remote="$1"
+url="$2"
+
+# Get the current branch name
+current_branch=$(git symbolic-ref HEAD | sed -e 's,.*/\(.*\),\1,')
+
+# If we're pushing to main branch, update submodules first
+if [ "$current_branch" = "main" ]; then
+    echo "Pushing to main branch - updating submodules first..."
+    
+    # Store initial commit hash
+    initial_commit=$(git rev-parse HEAD)
+
+    # Update submodules similar to what's done in [utils/git_update.sh](utils/git_update.sh)
+    if ! git pull --recurse-submodules; then
+        echo "Error: Failed to pull latest changes"
+        exit 1
+    fi
+    
+    if ! git submodule update --remote --merge; then
+        echo "Error: Failed to update submodules"
+        exit 1
+    fi
+
+    # Check if there are changes in the parent repo
+    if git status --porcelain | grep -q '^.M'; then
+        echo "Changes detected in parent repo after submodule update"
+        
+        # Stage all changes
+        if ! git add -A; then
+            echo "Error: Failed to stage changes"
+            exit 1
+        fi
+
+        # Create commit with automatic message
+        if ! git commit -m "Auto-commit: Update submodule references"; then
+            echo "Error: Failed to create automatic commit"
+            exit 1
+        fi
+
+        echo "Created automatic commit for submodule updates"
+    fi
+fi
+
+zero=$(git hash-object --stdin </dev/null | tr '[0-9a-f]' '0')
+final_commit=$(git rev-parse HEAD)
+
+while read local_ref local_oid remote_ref remote_oid
+do
+    if test "$local_oid" = "$zero"
+    then
+        # Handle delete
+        :
+    else
+        if test "$remote_oid" = "$zero"
+        then
+            # New branch, examine all commits
+            range="$local_oid"
+        else
+            # Update to existing branch, examine new commits
+            if [ "$initial_commit" != "$final_commit" ]; then
+                # Include the auto-commit in the range
+                range="$remote_oid..$final_commit"
+            else
+                range="$remote_oid..$local_oid"
+            fi
+        fi
+    fi
+done
+
+exit 0
