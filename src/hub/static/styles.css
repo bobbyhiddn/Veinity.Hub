@@ -556,95 +556,8 @@ footer {
   .nav-container {
     position: relative;
     z-index: 1001;
-  }
-
-  .mobile-menu-toggle {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 1003;
-  }
-
-  .theme-toggle {
-    position: fixed;
-    top: 20px;
-    right: 70px;
-    z-index: 1003;
-  }
-
-  .nav-links.active {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 100vh;
-    padding-top: 100px;
-    background-color: var(--bg-transparent-darker);
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-    z-index: 1002;
-    display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 2rem;
-  }
-
-  /* Force hardware acceleration for better performance */
-  .nav-links, nav, .hero-section, .article-card {
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
-    will-change: transform;
-  }
-
-  /* Enhanced mobile backgrounds */
-  .hero-section {
-    background-color: var(--bg-transparent);
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-  }
-
-  .article-card {
-    background-color: var(--bg-transparent-darker);
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-  }
-
-  /* Fallback for browsers without backdrop-filter support */
-  @supports not ((backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px))) {
-    nav,
-    .nav-links.active,
-    .hero-section,
-    .article-card {
-      background-color: rgba(0, 0, 0, 0.85);
-    }
-
-    [data-theme="light"] nav,
-    [data-theme="light"] .nav-links.active,
-    [data-theme="light"] .hero-section,
-    [data-theme="light"] .article-card {
-      background-color: rgba(255, 255, 255, 0.85);
-    }
-  }
-}
-
-/* Mobile navigation specific styles */
-@media (max-aspect-ratio: 1/1) {
-  .nav-links.active {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.95);
-    z-index: 1002;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
-    padding: 4rem 1rem;
   }
 
   .nav-brand {
@@ -668,6 +581,43 @@ footer {
     margin-top: 0.5rem;
   }
 
+  .mobile-menu-toggle {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 1003;
+    display: flex;
+  }
+
+  .theme-toggle {
+    position: fixed;
+    top: 1rem;
+    right: 4rem;
+    z-index: 1003;
+  }
+
+  .nav-links {
+    display: none;
+    width: 100%;
+  }
+
+  .nav-links.active {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.95);
+    z-index: 1002;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    padding: 4rem 1rem;
+  }
+
   .nav-links a {
     font-size: 1.5rem;
     padding: 0.75rem 1.5rem;
@@ -689,25 +639,20 @@ footer {
     border-radius: 20px;
   }
 
-  .mobile-menu-toggle {
-    position: fixed;
-    top: 1rem;
-    right: 1rem;
-    z-index: 1003;
-    display: flex;
-  }
-
-  .theme-toggle {
-    position: fixed;
-    top: 1rem;
-    right: 4rem;
-    z-index: 1003;
-  }
-
   body.menu-open {
     overflow: hidden;
     position: fixed;
     width: 100%;
+  }
+
+  /* Force hardware acceleration */
+  .nav-links,
+  nav,
+  .hero-section,
+  .article-card {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    will-change: transform;
   }
 }
 
@@ -723,15 +668,14 @@ footer {
   }
 }
 
-/* Additional iOS specific fixes */
+/* iOS specific fixes */
 @supports (-webkit-touch-callout: none) {
   @media (max-aspect-ratio: 1/1) {
+    body,
     nav,
-    .nav-links.active,
-    .hero-section,
-    .article-card {
-      -webkit-backdrop-filter: blur(10px) saturate(1.8);
-      backdrop-filter: blur(10px) saturate(1.8);
+    .nav-links.active {
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
     }
   }
 }
