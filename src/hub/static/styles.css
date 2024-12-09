@@ -147,6 +147,43 @@ nav {
   color: var(--accent-gold);
 }
 
+/* Mobile Menu Toggle Button */
+.mobile-menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 21px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.mobile-menu-toggle span {
+  width: 100%;
+  height: 3px;
+  background-color: var(--text-primary);
+  border-radius: 3px;
+  transition: all 0.3s ease;
+}
+
+.mobile-menu-toggle.active span:first-child {
+  transform: translateY(9px) rotate(45deg);
+}
+
+.mobile-menu-toggle.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.mobile-menu-toggle.active span:last-child {
+  transform: translateY(-9px) rotate(-45deg);
+}
+
 /* Search Bar */
 .search-container {
   position: relative;
@@ -388,6 +425,80 @@ footer {
 }
 
 /* Responsive Styles */
+@media (max-aspect-ratio: 1/1) {
+  .mobile-menu-toggle {
+    display: flex;
+  }
+
+  .nav-container {
+    flex-direction: column;
+    align-items: center;
+    padding-top: 1rem;
+  }
+
+  .nav-brand {
+    margin-bottom: 1rem;
+  }
+
+  .nav-brand img {
+    height: 60px;
+  }
+
+  .nav-links {
+    display: none;
+    width: 100%;
+    padding: 1rem;
+    background: var(--nav-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .nav-links.active {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    position: absolute;
+    top: 100px;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    border-top: 1px solid var(--accent-gold);
+    border-bottom: 1px solid var(--accent-gold);
+  }
+
+  .search-container {
+    width: 100%;
+    max-width: none;
+    margin: 0.5rem 0;
+  }
+
+  .theme-toggle {
+    margin-top: 1rem;
+  }
+
+  /* Ensure frosted glass effect works on mobile */
+  nav, .nav-links.active, .article-card, .hero-section {
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  [data-theme="light"] nav,
+  [data-theme="light"] .nav-links.active,
+  [data-theme="light"] .article-card,
+  [data-theme="light"] .hero-section {
+    background-color: rgba(255, 255, 255, 0.8);
+  }
+
+  /* Fix for iOS Safari */
+  @supports (-webkit-backdrop-filter: none) {
+    nav, .nav-links.active, .article-card, .hero-section {
+      -webkit-backdrop-filter: blur(10px);
+    }
+  }
+}
+
 @media (max-width: 768px) {
   /* Adjust logo and header for mobile */
   .nav-brand {
@@ -501,17 +612,13 @@ footer {
   }
 }
 
-/* Additional adjustments for very small screens */
+/* Additional small screen adjustments */
 @media (max-width: 320px) {
   .nav-brand img {
     height: 50px;
   }
 
-  .nav-brand a {
-    font-size: 1.25rem;
-  }
-
-  .hero-section h1 {
-    font-size: 1.5rem;
+  .nav-links.active {
+    top: 90px;
   }
 }
