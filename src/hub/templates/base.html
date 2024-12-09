@@ -35,7 +35,10 @@
         <nav>
             <div class="nav-container">
                 <div class="nav-brand">
-                    <a href="{{ url_for('index') }}">{{ site_name }}</a>
+                    <a href="{{ url_for('index') }}">
+                        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="{{ site_name }} logo">
+                        <span>{{ site_name }}</span>
+                    </a>
                 </div>
                 <div class="nav-links">
                     {% for category in categories %}
