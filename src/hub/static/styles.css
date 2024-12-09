@@ -11,7 +11,9 @@
   --border-color: var(--accent-gold);
   --link-color: var(--primary-color);
   --link-hover: var(--accent-gold);
-  --nav-bg: rgba(255, 255, 255, 0.9);
+  --nav-bg-transparent: rgba(0, 0, 0, 0.3);
+  --nav-bg-transparent-light: rgba(255, 255, 255, 0.3);
+  --nav-bg: var(--nav-bg-transparent-light);
   --nav-text: #1a1a1a;
   --card-bg: rgba(255, 255, 255, 0.9);
   --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
@@ -28,7 +30,7 @@
   --background-secondary: rgba(0, 0, 0, 0.85);
   --link-color: var(--accent-gold);
   --link-hover: #ffffff;
-  --nav-bg: rgba(0, 0, 0, 0.9);
+  --nav-bg: var(--nav-bg-transparent);
   --nav-text: #ffffff;
   --card-bg: rgba(0, 0, 0, 0.85);
   --input-bg: rgba(0, 0, 0, 0.2);
@@ -85,14 +87,14 @@ a:hover {
 /* Navigation */
 nav {
   background-color: var(--nav-bg);
-  backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
   padding: 1rem 2rem;
   border-bottom: 1px solid var(--accent-gold);
   transition: all 0.3s ease;
   width: 100%;
   position: relative;
-  z-index: 1000; /* Increase base nav z-index */
+  z-index: 1000;
 }
 
 .nav-container {
@@ -502,6 +504,100 @@ footer {
   /* Prevent scrolling when menu is open */
   body.menu-open {
     overflow: hidden;
+  }
+}
+
+@media (max-aspect-ratio: 1/1) {
+  nav {
+    position: sticky;
+    top: 0;
+  }
+
+  .nav-container {
+    position: relative;
+    z-index: 1001;
+  }
+
+  .mobile-menu-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1003;
+  }
+
+  .theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 70px;
+    z-index: 1003;
+  }
+
+  .nav-links.active {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100vh;
+    padding-top: 100px;
+    background-color: var(--nav-bg);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    z-index: 1002;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  /* Force hardware acceleration for better performance */
+  .nav-links, nav, .hero-section, .article-card {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    will-change: transform;
+  }
+
+  /* Enhanced mobile backgrounds */
+  .hero-section {
+    background-color: var(--nav-bg);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+  }
+
+  .article-card {
+    background-color: var(--nav-bg);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+  }
+
+  /* Fallback for browsers without backdrop-filter support */
+  @supports not ((backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px))) {
+    nav,
+    .nav-links.active,
+    .hero-section,
+    .article-card {
+      background-color: rgba(0, 0, 0, 0.85);
+    }
+
+    [data-theme="light"] nav,
+    [data-theme="light"] .nav-links.active,
+    [data-theme="light"] .hero-section,
+    [data-theme="light"] .article-card {
+      background-color: rgba(255, 255, 255, 0.85);
+    }
+  }
+}
+
+/* Additional iOS specific fixes */
+@supports (-webkit-touch-callout: none) {
+  @media (max-aspect-ratio: 1/1) {
+    nav,
+    .nav-links.active,
+    .hero-section,
+    .article-card {
+      -webkit-backdrop-filter: blur(10px) saturate(1.8);
+      backdrop-filter: blur(10px) saturate(1.8);
+    }
   }
 }
 
