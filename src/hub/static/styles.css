@@ -11,9 +11,11 @@
   --border-color: var(--accent-gold);
   --link-color: var(--primary-color);
   --link-hover: var(--accent-gold);
-  --nav-bg-transparent: rgba(0, 0, 0, 0.3);
-  --nav-bg-transparent-light: rgba(255, 255, 255, 0.3);
-  --nav-bg: var(--nav-bg-transparent-light);
+  --bg-transparent: rgba(0, 0, 0, 0.3);
+  --bg-transparent-darker: rgba(0, 0, 0, 0.5);
+  --bg-transparent-light: rgba(255, 255, 255, 0.3);
+  --bg-transparent-light-darker: rgba(255, 255, 255, 0.5);
+  --nav-bg: var(--bg-transparent-light);
   --nav-text: #1a1a1a;
   --card-bg: rgba(255, 255, 255, 0.9);
   --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
@@ -30,7 +32,7 @@
   --background-secondary: rgba(0, 0, 0, 0.85);
   --link-color: var(--accent-gold);
   --link-hover: #ffffff;
-  --nav-bg: var(--nav-bg-transparent);
+  --nav-bg: var(--bg-transparent);
   --nav-text: #ffffff;
   --card-bg: rgba(0, 0, 0, 0.85);
   --input-bg: rgba(0, 0, 0, 0.2);
@@ -233,6 +235,9 @@ nav {
   padding: 4rem 0;
   margin-bottom: 2rem;
   border-bottom: 1px solid var(--accent-gold);
+  background-color: var(--bg-transparent);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
 }
 
 .hero-section h1 {
@@ -249,6 +254,9 @@ nav {
   padding: 1.5rem;
   margin-bottom: 1.5rem;
   transition: all 0.3s ease;
+  background-color: var(--bg-transparent-darker);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
 }
 
 .article-card:hover {
@@ -364,6 +372,9 @@ nav {
   backdrop-filter: blur(10px);
   border-radius: 1rem;
   border: 1px solid var(--accent-gold);
+  background-color: var(--bg-transparent);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
 }
 
 .categories h2 {
@@ -475,7 +486,7 @@ footer {
     height: 100vh; /* Full height */
     padding-top: 120px; /* Space for logo */
     z-index: 999; /* Just below nav */
-    background-color: var(--nav-bg);
+    background-color: var(--bg-transparent-darker);
     backdrop-filter: blur(20px); /* Increased blur for better effect */
     -webkit-backdrop-filter: blur(20px);
   }
@@ -540,7 +551,7 @@ footer {
     bottom: 0;
     height: 100vh;
     padding-top: 100px;
-    background-color: var(--nav-bg);
+    background-color: var(--bg-transparent-darker);
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
     z-index: 1002;
@@ -559,13 +570,13 @@ footer {
 
   /* Enhanced mobile backgrounds */
   .hero-section {
-    background-color: var(--nav-bg);
+    background-color: var(--bg-transparent);
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
   }
 
   .article-card {
-    background-color: var(--nav-bg);
+    background-color: var(--bg-transparent-darker);
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
   }
@@ -722,5 +733,77 @@ footer {
 
   .nav-links.active {
     top: 90px;
+  }
+}
+
+/* Section headers and content areas */
+@media (max-aspect-ratio: 1/1) {
+  .hero-section,
+  .categories,
+  .recent-articles {
+    background-color: var(--bg-transparent);
+    border-bottom: 1px solid var(--accent-gold);
+    margin: 0;
+    padding: 1.5rem;
+  }
+
+  /* Article cards and other content blocks */
+  .article-card {
+    background-color: var(--bg-transparent-darker);
+    margin: 1rem 0;
+    border: 1px solid var(--accent-gold);
+  }
+
+  /* Navigation menu when expanded */
+  .nav-links.active {
+    background-color: var(--bg-transparent-darker);
+  }
+
+  /* Light theme variations */
+  [data-theme="light"] .hero-section,
+  [data-theme="light"] .categories,
+  [data-theme="light"] .recent-articles {
+    background-color: var(--bg-transparent-light);
+  }
+
+  [data-theme="light"] .article-card,
+  [data-theme="light"] .nav-links.active {
+    background-color: var(--bg-transparent-light-darker);
+  }
+
+  /* Force hardware acceleration */
+  .hero-section,
+  .article-card,
+  .categories,
+  .recent-articles,
+  .nav-links.active {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    will-change: transform;
+  }
+
+  /* Ensure text remains readable */
+  .hero-section h1,
+  .categories h2,
+  .recent-articles h2 {
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  }
+
+  [data-theme="light"] .hero-section h1,
+  [data-theme="light"] .categories h2,
+  [data-theme="light"] .recent-articles h2 {
+    text-shadow: 0 1px 3px rgba(255, 255, 255, 0.3);
+  }
+}
+
+/* iOS specific optimizations */
+@supports (-webkit-touch-callout: none) {
+  .hero-section,
+  .article-card,
+  .categories,
+  .recent-articles,
+  .nav-links.active {
+    -webkit-backdrop-filter: blur(10px) saturate(1.8);
+    backdrop-filter: blur(10px) saturate(1.8);
   }
 }
