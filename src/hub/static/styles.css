@@ -242,6 +242,7 @@
   }
   
   /* Content Sections */
+  /* Base hero section styles (non-mobile) */
   .hero-section {
     background-color: var(--bg-transparent);
     -webkit-backdrop-filter: blur(10px);
@@ -252,7 +253,14 @@
     position: relative;
     z-index: 1;
   }
-  
+
+  /* Container for hero content */
+  .hero-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
   .hero-section h1 {
     font-weight: 700;
     margin-bottom: 1rem;
@@ -341,8 +349,34 @@
       left: 0;
       right: 0;
       padding: 0.5rem;
+      height: 80px;
+      z-index: 1000;
     }
-  
+
+    /* Adjust content for fixed header */
+    main {
+      padding-top: 80px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Hero Section Adjustments */
+    .hero-section {
+      position: relative;
+      z-index: 1;
+      padding: 2rem 1rem;
+      margin-top: 0;
+    }
+
+    /* Logo positioning */
+    .nav-brand {
+      position: fixed;
+      top: 1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1003;
+    }
+
     .mobile-menu-toggle {
       display: flex;
       position: fixed;
@@ -410,11 +444,6 @@
       padding: 0.75rem 1.5rem;
       width: 100%;
       text-align: center;
-    }
-  
-    /* Adjust content for fixed header */
-    main {
-      margin-top: 80px;
     }
   
     /* Mobile Search */
