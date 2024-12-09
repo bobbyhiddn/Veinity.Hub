@@ -628,6 +628,101 @@ footer {
   }
 }
 
+/* Mobile navigation specific styles */
+@media (max-aspect-ratio: 1/1) {
+  .nav-links.active {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.95);
+    z-index: 1002;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    padding: 4rem 1rem;
+  }
+
+  .nav-brand {
+    position: fixed;
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1003;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .nav-brand img {
+    height: 50px;
+    width: auto;
+  }
+
+  .nav-brand span {
+    font-size: 1.5rem;
+    margin-top: 0.5rem;
+  }
+
+  .nav-links a {
+    font-size: 1.5rem;
+    padding: 0.75rem 1.5rem;
+    width: 100%;
+    text-align: center;
+    transition: color 0.2s ease;
+  }
+
+  .search-container {
+    width: 100%;
+    padding: 0 1rem;
+    margin-top: 1rem;
+  }
+
+  .search-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    border-radius: 20px;
+  }
+
+  .mobile-menu-toggle {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 1003;
+    display: flex;
+  }
+
+  .theme-toggle {
+    position: fixed;
+    top: 1rem;
+    right: 4rem;
+    z-index: 1003;
+  }
+
+  body.menu-open {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+  }
+}
+
+/* Smaller screen adjustments */
+@media (max-width: 320px) {
+  .nav-links.active {
+    padding: 3rem 0.5rem;
+  }
+
+  .nav-links a {
+    font-size: 1.25rem;
+    padding: 0.5rem 1rem;
+  }
+}
+
 /* Additional iOS specific fixes */
 @supports (-webkit-touch-callout: none) {
   @media (max-aspect-ratio: 1/1) {
