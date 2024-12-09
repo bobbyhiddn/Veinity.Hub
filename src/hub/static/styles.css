@@ -23,7 +23,7 @@
     --button-text: #ffffff;
   }
   
-  /* Dark theme overrides */
+  /* Dark theme */
   [data-theme="dark"] {
     --text-primary: #ffffff;
     --text-secondary: rgba(255, 255, 255, 0.85);
@@ -94,8 +94,7 @@
     border-bottom: 1px solid var(--accent-gold);
     transition: all 0.3s ease;
     width: 100%;
-    position: sticky;
-    top: 0;
+    position: relative;
     z-index: 1000;
   }
   
@@ -178,6 +177,18 @@
     transition: all 0.3s ease;
   }
   
+  .mobile-menu-toggle.active span:first-child {
+    transform: translateY(9px) rotate(45deg);
+  }
+  
+  .mobile-menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+  }
+  
+  .mobile-menu-toggle.active span:last-child {
+    transform: translateY(-9px) rotate(-45deg);
+  }
+  
   /* Search Bar */
   .search-container {
     position: relative;
@@ -238,6 +249,8 @@
     padding: 4rem 0;
     margin-bottom: 2rem;
     border-bottom: 1px solid var(--accent-gold);
+    position: relative;
+    z-index: 1;
   }
   
   .hero-section h1 {
@@ -280,7 +293,7 @@
     margin-bottom: 1rem;
   }
   
-  /* Categories Section */
+  /* Categories */
   .categories {
     background-color: var(--bg-transparent);
     -webkit-backdrop-filter: blur(10px);
@@ -322,6 +335,14 @@
     }
   
     /* Mobile Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 0.5rem;
+    }
+  
     .mobile-menu-toggle {
       display: flex;
       position: fixed;
@@ -338,8 +359,7 @@
     }
   
     .nav-container {
-      flex-direction: column;
-      padding: 0.5rem;
+      padding: 0;
     }
   
     .nav-brand {
@@ -347,6 +367,7 @@
       top: 1rem;
       left: 50%;
       transform: translateX(-50%);
+      z-index: 1003;
       flex-direction: column;
       align-items: center;
       gap: 0.5rem;
@@ -363,7 +384,6 @@
   
     .nav-links {
       display: none;
-      width: 100%;
     }
   
     .nav-links.active {
@@ -392,10 +412,20 @@
       text-align: center;
     }
   
+    /* Adjust content for fixed header */
+    main {
+      margin-top: 80px;
+    }
+  
     /* Mobile Search */
     .search-container {
       width: 100%;
       padding: 0 1rem;
+      margin-top: 1rem;
+    }
+  
+    .search-input {
+      width: 100%;
     }
   
     /* Mobile Content */
