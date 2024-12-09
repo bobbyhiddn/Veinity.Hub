@@ -109,6 +109,7 @@
     z-index: 1001;
   }
   
+  /* Navigation Brand */
   .nav-brand {
     display: flex;
     align-items: center;
@@ -116,17 +117,13 @@
     position: relative;
     z-index: 1002;
   }
-  
+
   .nav-brand img {
     height: 120px;
     width: auto;
     transition: transform 0.2s ease;
   }
-  
-  .nav-brand img:hover {
-    transform: scale(1.05);
-  }
-  
+
   .nav-brand a {
     color: var(--text-primary);
     font-size: 2rem;
@@ -241,8 +238,7 @@
     fill: currentColor;
   }
   
-  /* Content Sections */
-  /* Base hero section styles (non-mobile) */
+  /* Hero Section */
   .hero-section {
     background-color: var(--bg-transparent);
     -webkit-backdrop-filter: blur(10px);
@@ -254,16 +250,22 @@
     z-index: 1;
   }
 
-  /* Container for hero content */
   .hero-content {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 2rem;
+    text-align: center;
   }
 
   .hero-section h1 {
+    font-size: 2.5rem;
     font-weight: 700;
     margin-bottom: 1rem;
+  }
+
+  .hero-section .lead {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
   }
   
   /* Article Cards */
@@ -375,6 +377,9 @@
       left: 50%;
       transform: translateX(-50%);
       z-index: 1003;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
     }
 
     .mobile-menu-toggle {
@@ -411,9 +416,8 @@
       height: 50px;
     }
   
-    .nav-brand a {
+    .nav-brand span {
       font-size: 1.5rem;
-      flex-direction: column;
     }
   
     .nav-links {
@@ -478,5 +482,46 @@
   @supports (-webkit-touch-callout: none) {
     body {
       min-height: -webkit-fill-available;
+    }
+  }
+  
+  /* Mobile adjustments */
+  @media (max-aspect-ratio: 1/1) {
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 0.5rem;
+    }
+
+    .nav-brand {
+      position: fixed;
+      top: 1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .nav-brand img {
+      height: 50px;
+    }
+
+    .nav-brand span {
+      font-size: 1.5rem;
+    }
+
+    main {
+      padding-top: 80px;
+    }
+
+    .hero-section {
+      padding: 2rem 1rem;
+    }
+
+    .hero-section h1 {
+      font-size: 2rem;
     }
   }
