@@ -80,31 +80,25 @@ body::before {
 /* Mobile specific background handling */
 @media (max-aspect-ratio: 1/1) {
   body {
-    /* Ensure background image is visible on mobile */
     background-attachment: scroll;
     background-position: center top;
-    /* Set a darker background color as fallback */
     background-color: var(--background-primary);
     min-height: 100vh;
-    /* Fix for mobile browsers */
     min-height: -webkit-fill-available;
-    /* Force background to stay fixed on some mobile browsers */
-    background-size: 100% auto;
+    background-size: cover;
   }
 
-  /* Adjust overlay for better readability on mobile */
   body::before {
-    opacity: 0.85; /* Slightly more opaque for better contrast */
+    opacity: 0.5;
     background: var(--background-secondary);
+    pointer-events: none;
   }
 }
 
 /* iOS specific fixes */
 @supports (-webkit-touch-callout: none) {
   body {
-    /* Fix for iOS viewport height issues */
     min-height: -webkit-fill-available;
-    /* Additional iOS background fixes */
     background-attachment: scroll;
     -webkit-background-size: cover;
     background-size: cover;
