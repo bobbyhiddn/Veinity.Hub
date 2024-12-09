@@ -49,20 +49,20 @@ body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   line-height: 1.6;
   color: var(--text-primary);
-  background-image: url('/static/images/marble-dark.png');
+  background-image: url('../static/images/marble-dark.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  min-height: 100vh;
-  transition: all 0.3s ease;
   background-attachment: fixed;
   background-color: var(--background-primary);
+  min-height: 100vh;
+  transition: all 0.3s ease;
   position: relative;
   overflow-x: hidden;
 }
 
 [data-theme="light"] body {
-  background-image: url('/static/images/marble-light.png');
+  background-image: url('../static/images/marble-light.png');
 }
 
 body::before {
@@ -80,22 +80,22 @@ body::before {
 /* Mobile specific background handling */
 @media (max-aspect-ratio: 1/1) {
   body {
-    /* Disable fixed background on mobile as it can cause performance issues */
+    /* Ensure background image is visible on mobile */
     background-attachment: scroll;
-    /* Ensure the background covers the full height */
+    background-position: center top;
+    /* Set a darker background color as fallback */
+    background-color: var(--background-primary);
+    min-height: 100vh;
+    /* Fix for mobile browsers */
     min-height: -webkit-fill-available;
+    /* Force background to stay fixed on some mobile browsers */
+    background-size: 100% auto;
   }
 
-  /* Add an overlay to ensure content is readable */
+  /* Adjust overlay for better readability on mobile */
   body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    opacity: 0.85; /* Slightly more opaque for better contrast */
     background: var(--background-secondary);
-    z-index: -1;
   }
 }
 
@@ -104,6 +104,10 @@ body::before {
   body {
     /* Fix for iOS viewport height issues */
     min-height: -webkit-fill-available;
+    /* Additional iOS background fixes */
+    background-attachment: scroll;
+    -webkit-background-size: cover;
+    background-size: cover;
   }
 }
 
